@@ -7,6 +7,7 @@
  *           → 以規則「模擬」AI 整理（直接摘錄原文句子，不是真正的語言模型）
  *
  *   回傳的 JSON 欄位與 S_coach_api.asp 相同，所以 app.js 的畫面程式不用改。
+ *   提問紀錄（正式版 qlog）改存瀏覽器 localStorage，見 history_store.js；act=getlog 由此讀回。
  *   檢索邏輯是簡化版（關鍵詞＋同義詞比對），結果排序不保證與正式版一致。
  * ===================================================================== */
 (function () {
@@ -135,7 +136,7 @@
   // ---------- act=ask ----------
   function ask(f) {
     var a = analyze(f.q), concepts = a.concepts;
-    var base = { ok: 1, act: 'ask', q: f.orig || f.q, qa: null, kw: f.orig && f.orig !== f.q ? f.q : '', logId: Date.now() % 100000,
+    var base = { ok: 1, act: 'ask', q: f.orig || f.q, qa: null, kw: f.orig && f.orig !== f.q ? f.q : '', logId: 0,
       aiEnabled: true, aiFmt: 'ollama', aiErr: '', intent: a.intent, ai: null };
     var conJ = concepts.map(function (c) { return { w: c.w, syn: c.vs.length > 1, wt: 1 }; });
     if (!concepts.length) return extend(base, { status: 'noterm', concepts: [], sources: [], stds: [], terms: [], related: [], cover: 0, primary: null });
@@ -257,6 +258,24 @@
 
   function delay(v, ms) { return new Promise(function (r) { setTimeout(function () { r(v); }, ms); }); }
 
+  // ---------- 提問紀錄（存在瀏覽器 localStorage，見 history_store.js）----------
+  // history_store.js 沒載入或 localStorage 無法使用時，所有紀錄操作都安靜地略過
+  var HIST = window.DEMO_HISTORY;
+  function safe(fn, fallback) { try { return HIST ? fn() : fallback; } catch (e) { return fallback; } }
+  function resultOf(r) { return r.status === 'nohit' ? '找不到' : r.status === 'noterm' ? '無關鍵詞' : r.status; }   // 同正式版 qlog.result
+  function refsOf(r) {
+    var seen = {}, out = [];
+    [r.primary].concat(r.stds || [], r.sources || []).forEach(function (s) {
+      if (s && s.code && !seen[s.code]) { seen[s.code] = 1; out.push({ code: s.code, title: s.title || '' }); }
+    });
+    return out.slice(0, 5);
+  }
+  function plainAI(ai) {
+    var t = ai && ai.message ? String(ai.message.content || '') : '';
+    t = t.replace(/^以下依示範標準[^\n]*\n/, '');   // 略過示範版固定的開頭說明，讓紀錄摘要直接顯示重點
+    return t.replace(/#{1,4}\s*/g, '').replace(/\[來源\s*\d+\]/g, '').replace(/\s*\n\s*/g, ' ').trim();
+  }
+
   // ---------- 給 app.js 用的介面 ----------
   window.DEMO = {
     types: TYPES,
@@ -269,13 +288,44 @@
       try {
         if (f.act === 'ask') {
           r = ask(f);
-          if (String(f.ai) === '1' && r.status === 'ok') { r.ai = fakeAI(r); return delay(r, 1200); }
-          return delay(r, 300);
+          var isAI = String(f.ai) === '1' && r.status === 'ok';
+          if (isAI) r.ai = fakeAI(r);
+          // 第 2 步（AI 整理，nolog=1）：更新第 1 步建立的同一筆紀錄（同正式版 SaveResp）
+          if (String(f.nolog) === '1') {
+            r.logId = +f.logid || 0;
+            return delay(r, isAI ? 1200 : 300).then(function (x) {
+              if (isAI && x.logId) safe(function () { HIST.update(x.logId, { resp: x, aiText: plainAI(x.ai), result: 'ok+AI' }); });
+              return x;
+            });
+          }
+          // 第 1 步：建立紀錄；AI 改寫關鍵詞後重查（replog）時，刪掉前一筆（同正式版）
+          if (+f.replog) safe(function () { HIST.remove(f.replog); });
+          return delay(r, isAI ? 1200 : 300).then(function (x) {
+            x.logId = safe(function () {
+              return HIST.add({ mode: 'ask', q: x.q, result: isAI ? 'ok+AI' : resultOf(x), refs: refsOf(x),
+                aiText: isAI ? plainAI(x.ai) : '',
+                resp: x.status === 'ok' || x.status === 'low' ? x : null });   // 同正式版：找不到的題目不保存回答，紀錄頁顯示「再問一次」
+            }, Date.now());
+            return x;
+          });
         }
-        if (f.act === 'search') return delay(search(f), 250);
+        if (f.act === 'search') {
+          return delay(search(f), 250).then(function (x) {
+            if (x.ok) safe(function () {
+              HIST.add({ mode: 'search', q: String(f.q || '').trim(), result: x.results.length + '筆', aiText: '', resp: null,
+                refs: x.results.slice(0, 3).map(function (s) { return { code: s.code, title: s.title }; }) });
+            });
+            return x;
+          });
+        }
         if (f.act === 'kwx') return delay({ ok: 0, err: '示範版沒有 AI 關鍵詞判讀' }, 100);
         if (f.act === 'fb') return delay({ ok: 1 }, 150);
-        if (f.act === 'getlog') return delay({ ok: 0, err: '示範版不保存提問紀錄' }, 100);
+        if (f.act === 'getlog') {
+          var g = safe(function () { return HIST.get(f.id); }, null);
+          if (!g) return delay({ ok: 0, err: safe(function () { return HIST.available(); }, false)
+            ? '找不到這筆紀錄（可能已清除）' : '這個瀏覽器無法使用 localStorage，示範版無法保存提問紀錄' }, 100);
+          return delay({ ok: 1, q: g.q, time: g.time, result: g.result, resp: g.mode === 'ask' ? (g.resp || null) : null }, 100);
+        }
       } catch (e) { return Promise.reject(e); }
       return delay({ ok: 0, err: 'unknown act' }, 50);
     },

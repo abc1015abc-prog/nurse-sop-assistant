@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- 護理標準查詢助理 示範版「我的提問紀錄」：比照 src/asp/S_coach_my.asp，紀錄改存瀏覽器 localStorage -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的提問紀錄｜護理標準查詢助理（示範版）</title>
+<link rel="stylesheet" href="css/S_coach.css">
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1677FF"/><stop offset="1" stop-color="#13C2C2"/></linearGradient>
+  <symbol id="i-cross" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 3h5a1 1 0 0 1 1 1v4.5H20a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-4.5V20a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-4.5H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h4.5V4a1 1 0 0 1 1-1Z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.5"/><path d="M12 17.5h.01"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></g></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M4 12h7M4 18h5"/><circle cx="17" cy="15" r="3.5"/><path d="m19.5 17.5 2 2"/></g></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5Z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M8 7h8M8 11h6"/></g></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="5.5" rx="8" ry="2.5"/><path d="M4 5.5v13c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-13M4 12c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5"/></g></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></g></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 12h4l2-6 4 12 2-6h6"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3Z"/></g></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></g></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9Zm7 11 .9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.3 8 9 4.6-.7 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/></g></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></g></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g></symbol>
+  <symbol id="i-lungs" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v8m0 0-3 2m3-2 3 2"/><path d="M8.5 7C6 8 3 12 3 17c0 2 1.5 3 3 3 2 0 3-1.5 3-3V9.5M15.5 7C18 8 21 12 21 17c0 2-1.5 3-3 3-2 0-3-1.5-3-3V9.5"/></g></symbol>
+  <symbol id="i-tube" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v6a5 5 0 0 0 10 0V3"/><path d="M12 14v4a3 3 0 0 0 6 0v-1"/></g></symbol>
+  <symbol id="i-syringe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4M17 7l-9.5 9.5-3 .5.5-3L14.5 4.5M14 3l7 7M9 10l2 2M7 12l2 2M2 22l3.5-3.5"/></g></symbol>
+  <symbol id="i-brain" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 1V5a2 2 0 0 0-3-1ZM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 1"/></g></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></g></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M13 2 4 14h7l-1 8 9-12h-7Z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></g></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M10 10h4v4h-4zM9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></g></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></g></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></g></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></g></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></g></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><path d="M7.5 7.5h.01"/></g></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
+</defs></svg>
+<header class="header">
+  <button class="icon-btn menu-btn" id="menuBtn" aria-label="開啟選單"><svg width="20" height="20"><use href="#i-menu"/></svg></button>
+  <a class="brand" href="index.html" style="color:inherit">
+    <div class="brand-mark"><svg width="18" height="18"><use href="#i-cross"/></svg></div>
+    <div class="brand-text"><b>護理標準查詢助理</b><span>Nursing Standards Assistant</span></div>
+  </a>
+  <label class="search" title="在 PDF 全文中搜尋">
+    <svg width="18" height="18"><use href="#i-search"/></svg>
+    <input id="gsearch" placeholder="快速搜尋標準全文，例如：PICC 換藥" aria-label="搜尋標準全文">
+    <span class="kbd">Ctrl K</span>
+  </label>
+  <div class="header-right">
+    <span class="env-pill on"><i></i>示範版・模擬 AI</span>
+    <a class="icon-btn" href="#" data-demo-off aria-label="回內網首頁" title="回內網首頁（示範版無）"><svg width="20" height="20"><use href="#i-home"/></svg></a>
+    <div class="user">
+      <div class="avatar"><svg width="18" height="18"><use href="#i-user"/></svg></div>
+      <div class="user-meta"><b>示範使用者</b><span>示範版</span></div>
+    </div>
+  </div>
+</header>
+
+<aside class="sidebar" id="sidebar" aria-label="主選單">
+  <div class="nav-label">查詢</div>
+  <a class="nav-item" href="index.html#chat"><svg width="20" height="20"><use href="#i-chat"/></svg>問助理</a>
+  <a class="nav-item" href="index.html#kw"><svg width="20" height="20"><use href="#i-key"/></svg>關鍵字查詢</a>
+  <a class="nav-item" href="index.html#all"><svg width="20" height="20"><use href="#i-book"/></svg>標準總覽<span class="count" data-demo-n>…</span></a>
+  <a class="nav-item active" href="my.html" aria-current="page"><svg width="20" height="20"><use href="#i-clock"/></svg>我的提問紀錄</a>
+  <div class="sidebar-foot">
+    <div class="kb">
+      <div class="t">知識庫</div>
+      <div class="v"><span data-demo-n>…</span><small>/ <span data-demo-n>…</span> 份示範標準</small></div>
+      <div class="bar"><i id="demoKbBar" style="width:0"></i></div>
+      <ul>
+        <li><svg width="14" height="14"><use href="#i-check"/></svg>只引用示範標準 JSON</li>
+        <li><svg width="14" height="14"><use href="#i-check"/></svg>每段附標準編號與頁碼</li>
+        <li><svg width="14" height="14"><use href="#i-check"/></svg>資料不離開瀏覽器</li>
+      </ul>
+    </div>
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
+<main class="main"><div class="container">
+<div class="banner info demo-note"><svg width="16" height="16"><use href="#i-shield"/></svg><div><b>示範版：紀錄只存在你自己的瀏覽器，不會上傳。</b>正式版的紀錄存在院內伺服器資料庫；示範版改用這個瀏覽器的 localStorage，最多保留最近 <span id="maxN">50</span> 筆，換瀏覽器、無痕視窗或清除網站資料後就看不到。</div></div>
+<div class="banner warn" id="noStore" hidden><svg width="16" height="16"><use href="#i-alert"/></svg><div><b>這個瀏覽器目前無法使用 localStorage</b>（可能是無痕模式、封鎖了網站資料，或儲存空間已滿），提問紀錄不會被保存；其他功能仍可正常使用。</div></div>
+<nav class="crumbs">查詢<svg width="14" height="14"><use href="#i-right"/></svg><span>我的提問紀錄</span></nav>
+<div class="page-head">
+  <div>
+    <div class="page-title"><h1>我的提問紀錄</h1><span class="badge neutral" id="dayBadge">近 90 天</span></div>
+    <p class="page-sub">這裡會顯示你在這個瀏覽器問過的問題與查過的關鍵字。點「查看回答」可以重看當時助理的整理與原文。</p>
+  </div>
+  <div class="head-actions">
+    <button type="button" class="btn btn-secondary" id="clearBtn"><svg width="18" height="18"><use href="#i-x"/></svg>清除紀錄</button>
+    <a class="btn btn-primary" href="index.html#chat"><svg width="18" height="18"><use href="#i-chat"/></svg>問新的問題</a>
+  </div>
+</div>
+
+<div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+  <section class="card stat"><div class="k"><i><svg width="16" height="16"><use href="#i-chat"/></svg></i>提問</div><div class="v"><span id="nAsk">0</span><small>次</small></div></section>
+  <section class="card stat"><div class="k"><i class="teal"><svg width="16" height="16"><use href="#i-key"/></svg></i>關鍵字查詢</div><div class="v"><span id="nKw">0</span><small>次</small></div></section>
+  <section class="card stat"><div class="k"><i class="warn"><svg width="16" height="16"><use href="#i-alert"/></svg></i>標準中找不到</div><div class="v"><span id="nMiss">0</span><small>次</small></div><div class="d">可改用標準上的正式名稱再試，或詢問臨床教師</div></section>
+</div>
+
+<section class="card">
+  <div class="toolbar">
+    <label class="big-input"><svg width="18" height="18"><use href="#i-search"/></svg><input id="tf" placeholder="在我的紀錄中搜尋"></label>
+    <span style="flex:1"></span>
+    <div class="chips" id="dayChips">
+      <a class="chip" href="my.html?d=30" data-d="30">30 天</a>
+      <a class="chip" href="my.html?d=90" data-d="90">90 天</a>
+      <a class="chip" href="my.html?d=365" data-d="365">1 年</a>
+    </div>
+  </div>
+  <div class="table-wrap">
+  <table class="lst admin">
+    <thead><tr><th style="width:140px">時間</th><th>問題 / AI 整理摘要</th><th class="hide-m">當時找到的標準</th><th style="width:110px">結果</th><th style="width:150px"></th></tr></thead>
+    <tbody id="tb"><tr><td colspan="5" class="empty">讀取中…</td></tr></tbody>
+  </table>
+  </div>
+  <div class="empty" id="noRow" style="display:none">沒有符合的紀錄</div>
+</section>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  var b=document.body, m=document.getElementById('menuBtn'), s=document.getElementById('scrim'), g=document.getElementById('gsearch');
+  function nav(o){b.classList.toggle('nav-open',o);}
+  m.onclick=function(){nav(!b.classList.contains('nav-open'));};
+  s.onclick=function(){nav(false);};
+  window.scNav=nav;
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();if(g.offsetParent)g.focus();else location.href='index.html#kw';}
+    if(e.key==='Escape')nav(false);
+  });
+  g.addEventListener('keydown',function(e){
+    var q=g.value.trim(); if(e.key!=='Enter'||e.isComposing||!q)return;
+    if(window.scKwSearch) window.scKwSearch(q); else location.href='index.html?kw='+encodeURIComponent(q)+'#kw';
+  });
+})();
+</script>
+<script src="history_store.js"></script>
+<script src="my.js"></script>
+</body>
+</html>
