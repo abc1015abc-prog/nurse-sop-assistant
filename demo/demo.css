@@ -1,4 +1,4 @@
-/* 示範版專用樣式：只補「開啟 PDF」示範視窗與示範提示；其餘全部沿用 ../src/asp/css/S_coach.css */
+/* 示範版專用樣式：只補「開啟 PDF」示範視窗與示範提示；其餘全部沿用 css/S_coach.css（正式版 src/asp/css/S_coach.css 的複本） */
 .demo-note{margin:0 0 16px}
 .demo-note code{font-size:12px}
 .demo-doc{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px}

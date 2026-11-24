@@ -323,7 +323,7 @@
     var box = document.createElement('section');
     box.className = 'card'; box.id = 'demoPick'; box.style.cssText = 'padding:20px;margin:0 0 16px';
     box.innerHTML = '<div class="banner warn"><div><b>瀏覽器不允許直接讀取同資料夾的 sample_standards.json</b>（以 file:// 開啟時常見）。<br>' +
-      '請按下方按鈕選擇 <code>demo/sample_standards.json</code>；或在專案根目錄執行 <code>python -m http.server 8000</code>，改開 <code>http://localhost:8000/demo/</code>。</div></div>' +
+      '請按下方按鈕選擇 <code>demo/sample_standards.json</code>；或在 <code>demo/</code> 資料夾內執行 <code>python -m http.server 8000</code>，改開 <code>http://localhost:8000/</code>。</div></div>' +
       '<input type="file" accept=".json,application/json" id="demoFile">' +
       '<div class="note" style="margin-top:8px">錯誤訊息：' + String(err && err.message || err).replace(/</g, '&lt;') + '</div>';
     var c = document.querySelector('.main .container'); c.insertBefore(box, c.firstChild);

@@ -16,7 +16,7 @@
 | 登入 / 權限 | 內網 `worknb` cookie；管理者名單在 `config.asp` | 無，固定顯示「示範使用者」 |
 | 提問紀錄、回饋、審核答案 | 寫入 `S_coach.mdb`（qlog、fb） | 不保存；回饋按鈕只回傳成功 |
 | 管理頁面 | 索引管理、提問紀錄、回饋審核、同義詞、AI 連線測試、初始化 | 無 |
-| 介面 | `S_coach.asp` + `S_coach_layout.asp` + `css/S_coach.css` | 同一份 CSS；HTML 與前端程式由正式版轉出 |
+| 介面 | `S_coach.asp` + `S_coach_layout.asp` + `css/S_coach.css` | 同一份 CSS 的複本（`demo/css/S_coach.css`）；HTML 與前端程式由正式版轉出 |
 
 > 院內資料庫、標準 PDF、員工與提問紀錄**都不在 repo 內，也不可上傳**。
 
@@ -97,6 +97,7 @@ demo/
   mock_api.js           本機模擬 API：讀 JSON、檢索、模擬 AI
   sample_standards.json 2 份虛構的護理技術範例
   demo.css              示範版額外樣式（PDF 視窗）
+  css/S_coach.css       正式版樣式的複本（讓 demo/ 可單獨部署）
 tests/
   questions.md          測試題庫範本
 ```
@@ -111,7 +112,9 @@ tests/
 ## 示範版使用方式
 
 - **最簡單**：直接用瀏覽器開啟 `demo/index.html`。因瀏覽器安全限制，以 `file://` 開啟時無法自動讀取 JSON，頁面上方會出現按鈕，選擇 `demo/sample_standards.json` 即可開始使用。
-- **免選檔**：在 repo 根目錄執行 `python -m http.server 8000`，開 `http://localhost:8000/demo/`。（要從根目錄啟動，因為示範版會讀 `../src/asp/css/S_coach.css`。）
+- **免選檔**：在 `demo/` 資料夾內執行 `python -m http.server 8000`，開 `http://localhost:8000/`。
+- **部署（Vercel 等靜態主機）**：Root Directory 設為 `demo`。`demo/` 內的檔案不引用資料夾外的任何檔案，可單獨部署。
+- `demo/css/S_coach.css` 是正式版 `src/asp/css/S_coach.css` 的**複本**；改了正式版樣式後請再複製一次：`cp src/asp/css/S_coach.css demo/css/S_coach.css`。
 - 可試：「濕洗手要洗多久？」「有氣管內管的病人多久做一次口腔護理？」「PICC 換藥」（示範資料中沒有 → 應顯示找不到）。
 - 想增加示範標準：在 `sample_standards.json` 的 `standards` 加一筆，格式同現有兩筆（`pages[].sections[]` 每個元素是一段原文，第一行為段落標題）。**只能放虛構或已公開的內容**。
 - 正式版前端（`S_coach.asp` 的 `<script>`）修改後，請把同樣修改同步到 `demo/app.js`（差異處都標有 `[DEMO]`）。
