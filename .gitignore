@@ -1,0 +1,22 @@
+# 院內實際設定（伺服器路徑、資料庫位置、模型、管理者員工代號）
+# 新環境請複製 src/asp/config.sample.asp 為 config.asp
+src/asp/config.asp
+
+# 院內資料：不可上傳
+*.mdb
+*.ldb
+*.accdb
+*.laccdb
+*.pdf
+fpdb/
+paper/
+sc_tmp/
+
+# 系統與編輯器
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+
+# 院內標準目錄（含負責人姓名、院內 IP）：不可上傳
+src/asp/S_coach_list.txt

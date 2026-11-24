@@ -1,0 +1,241 @@
+# 護理標準查詢助理－臨床常用縮寫／俗稱詞庫（UTF-8）
+# 格式：標準上的正式用詞|別名1,別名2,...（英文不分大小寫，空白會自動忽略）
+# 匯入時：只要任一個詞已存在於某一組同義詞，就併入那一組；否則新增一組。
+# 可自行增修後到「同義詞管理」重新匯入（重複匯入不會產生重複資料）。
+# 刻意不收容易誤判的兩字母縮寫（如 PE、PT、OR、AD、NC、UC、RT），需要時請在管理頁自行加入。
+
+# ── 呼吸道／氧氣 ──
+抽痰|suction,抽吸,sputum suction,吸痰
+氣管內管|endo,ett,endotracheal tube,氣管插管,on endo
+氣管切開|tracheostomy,trach,氣切,氣切管,氣切套管
+插管|intubation,氣管內插管
+拔管|extubation,移除氣管內管
+呼吸器|ventilator,mv,機械通氣,呼吸機,mechanical ventilation
+非侵襲性正壓呼吸器|niv,nippv,bipap,bi-pap,雙向陽壓呼吸器,雙相陽壓
+持續性正壓呼吸|cpap,持續正壓
+高流量鼻導管|hfnc,high flow nasal cannula,高流量氧氣
+氧氣治療|oxygen therapy,o2 therapy,給氧,氧療
+鼻導管|nasal cannula,鼻氧管
+非再吸入型面罩|nrm,non-rebreathing mask,non-rebreather,非再吸入面罩
+文氏面罩|venturi mask,venturi
+甦醒球|ambu,ambu bag,復甦球,bvm,bag valve mask
+動脈血液氣體分析|abg,血液氣體分析,arterial blood gas
+血氧飽和度|spo2,sao2,血氧,pulse oximetry,脈搏血氧
+蒸氣吸入|nebulizer,neb,霧化吸入,噴霧治療
+吸入劑|inhaler,mdi,定量噴霧吸入器,metered dose inhaler
+拍痰|chest percussion,扣痰,叩擊,背部叩擊
+姿位引流|postural drainage,姿勢引流
+胸管|chest tube,胸腔引流管,胸腔引流,胸瓶
+胸腔穿刺|thoracentesis
+急性呼吸窘迫症候群|ards
+慢性阻塞性肺病|copd
+呼吸器相關肺炎|vap
+
+# ── 管路 ──
+鼻胃管|ng,n-g,ngt,nasogastric tube,nasogastric,鼻胃
+口胃管|og,ogt,orogastric tube
+管灌|tube feeding,灌食,管灌飲食,feeding
+胃殘餘量|反抽,反抽量,gastric residual,grv,胃餘量,殘餘量
+經皮內視鏡胃造口|peg,胃造口,gastrostomy,胃造瘻
+空腸造口|jejunostomy,j-tube,空腸造瘻
+腸造口|stoma,ostomy,人工肛門,colostomy,ileostomy,造口
+導尿|foley,on foley,尿管,導尿管,留置導尿,indwelling catheter,foley catheter
+單次導尿|on-off,單導,間歇性導尿,intermittent catheterization
+膀胱灌洗|bladder irrigation,cbi,膀胱沖洗
+輸入輸出量|i/o,intake output,intake and output,攝入排出量,輸出入量
+引流管|drain,jp,jackson-pratt,hemovac,引流
+管路滑脫|非計畫性拔管,自拔,滑脫,self-extubation,unplanned extubation,管路自拔
+腦室引流|evd,ventriculostomy,腦室外引流
+腹腔穿刺|paracentesis
+腰椎穿刺|lumbar puncture,腰穿,lp
+
+# ── 血管通路／輸液 ──
+中心靜脈導管|cvc,central venous catheter,中心導管
+中心靜脈壓|cvp,central venous pressure
+周邊置入中心靜脈導管|picc,peripherally inserted central catheter
+人工血管|port-a,port-a-cath,植入式靜脈輸注座,implantable port,人工血管注射座
+動脈導管|a-line,arterial line,動脈線,動脈管路
+肺動脈導管|swan-ganz,pa catheter,史旺甘氏導管
+留置針|靜脈留置針,iv catheter,angiocath,on iv,周邊靜脈導管
+靜脈注射|iv,iv push,ivp,靜脈推注
+靜脈輸液|ivf,iv fluid,輸液,打點滴,點滴
+輸注幫浦|infusion pump,iv pump,輸液幫浦,幫浦
+針筒幫浦|syringe pump,針筒式幫浦
+靜脈炎|phlebitis
+外滲|extravasation,滲漏,infiltration,藥物外滲
+全靜脈營養|tpn,total parenteral nutrition
+周邊靜脈營養|ppn
+血管通路|vascular access
+動靜脈瘻管|avf,av fistula,瘻管,廔管,動靜脈廔管
+導管相關血流感染|clabsi,crbsi,導管血流感染
+
+# ── 給藥 ──
+給藥|medication administration,三讀五對,五對,給藥五對
+肌肉注射|im,肌注,intramuscular
+皮下注射|sc,sq,subcutaneous
+皮內注射|intradermal,皮內
+口服給藥|po,口服,per os
+舌下給藥|sl,舌下,sublingual
+立即給藥|stat
+需要時給藥|prn,必要時
+每日一次|qd
+每日兩次|bid
+每日三次|tid
+每日四次|qid
+每四小時|q4h
+每六小時|q6h
+每八小時|q8h
+睡前|hs
+飯前|ac
+飯後|pc
+高警訊藥物|high alert,high alert medication,高警訊
+管制藥品|管制藥,controlled drug,管制藥物
+肝素|heparin
+抗凝血劑|anticoagulant,抗凝劑
+胰島素|insulin,ri,regular insulin
+病人自控式止痛|pca,自控式止痛,patient controlled analgesia
+硬脊膜外止痛|epidural,硬膜外止痛,epidural analgesia
+藥物過敏|drug allergy,過敏史
+過敏性休克|anaphylaxis,anaphylactic shock
+皮膚試驗|skin test,皮試
+灌腸|enema,甘油球,glycerin enema
+肛門塞劑|suppository,塞劑
+組織胞漿素原活化劑|tpa,rt-pa,血栓溶解劑,actilyse
+
+# ── 輸血／檢驗 ──
+輸血|blood transfusion,transfusion,輸血反應
+紅血球濃厚液|prbc,lprbc,紅血球,packed rbc
+新鮮冷凍血漿|ffp,fresh frozen plasma
+血小板|plt,platelet
+白蛋白|albumin
+全血球計數|cbc,complete blood count
+凝血功能|aptt,inr,凝血時間
+血糖|bs,glucose,blood sugar,ac sugar,手指血糖,finger stick,血糖機
+糖化血色素|hba1c,a1c
+低血糖|hypoglycemia
+血液培養|blood culture,b/c,h/c,血液細菌培養
+痰液培養|sputum culture,痰培養
+採血|抽血,blood sampling,blood draw
+檢體|specimen,標本
+
+# ── 評估／監測 ──
+生命徵象|vs,vital sign,vital signs,tpr,生命徵候
+血壓|bp,blood pressure
+心跳|hr,heart rate,脈搏,pulse
+呼吸速率|rr,respiratory rate,呼吸次數
+體溫|bt,body temperature,temperature
+體重|bw,body weight
+身體質量指數|bmi
+昏迷指數|gcs,glasgow coma scale,glasgow
+瞳孔|pupil,瞳孔反射
+顱內壓|icp,intracranial pressure
+疼痛評估|pain score,疼痛分數,nrs,vas,疼痛指數
+譫妄|delirium,cam-icu
+鎮靜|sedation,rass
+心電圖|ekg,ecg,electrocardiogram
+水腫|edema
+發燒|fever,發熱
+吞嚥|swallowing,吞嚥評估,吞嚥困難,dysphagia
+
+# ── 急救／重症 ──
+心肺復甦術|cpr,急救,cardiopulmonary resuscitation
+不施行心肺復甦術|dnr,dnar,不急救
+自動體外心臟去顫器|aed
+電擊|defibrillation,去顫,電擊去顫
+心臟整流|cardioversion,同步電擊
+急救車|crash cart,急救推車
+葉克膜|ecmo,體外膜氧合
+主動脈內氣球幫浦|iabp
+休克|shock
+敗血症|sepsis,septic shock,敗血性休克
+加護病房|icu,重症病房,加護
+新生兒加護病房|nicu
+急診|er,急診室,emergency
+麻醉後恢復室|pacu,恢復室,par
+
+# ── 檢查／治療 ──
+胸部x光|cxr,chest x-ray,胸部x光檢查
+電腦斷層|ct,電腦斷層掃描,computed tomography
+磁振造影|mri,核磁共振
+超音波|echo,sono,ultrasound
+胃鏡|egd,pes,上消化道內視鏡
+大腸鏡|colonoscopy,cfs,大腸內視鏡
+心導管|cath,cardiac catheterization,心導管檢查
+經皮冠狀動脈介入治療|pci,ptca,氣球擴張術
+冠狀動脈繞道手術|cabg,繞道手術
+血液透析|hd,hemodialysis,洗腎
+腹膜透析|capd,peritoneal dialysis,apd
+連續性腎臟替代療法|crrt,cvvh,cvvhdf
+化學治療|化療,chemo,chemotherapy
+放射治療|放療,電療,radiotherapy
+骨髓移植|bmt,造血幹細胞移植,hsct
+照光治療|phototherapy,照光
+
+# ── 手術 ──
+手術前準備|術前,pre-op,preop,術前準備
+手術後護理|術後,post-op,postop,術後照護
+手術安全查核|time out,timeout,手術安全查核表
+開刀房|手術室,operating room
+
+# ── 疾病 ──
+心肌梗塞|ami,stemi,nstemi,myocardial infarction
+腦中風|cva,stroke,中風
+深部靜脈栓塞|dvt,deep vein thrombosis
+肺栓塞|pulmonary embolism
+間歇性充氣壓迫|ipc,scd,間歇性充氣加壓
+彈性襪|stocking,彈性絲襪,anti-embolism stocking,壓力襪
+糖尿病|dm,diabetes
+高血壓|htn,hypertension
+鬱血性心衰竭|chf,心衰竭,heart failure
+慢性腎臟病|ckd
+末期腎臟病|esrd
+上消化道出血|ugi bleeding,ugib
+泌尿道感染|uti
+導尿管相關泌尿道感染|cauti
+黃疸|jaundice,膽紅素,bilirubin
+
+# ── 婦兒 ──
+新生兒|newborn,新生嬰兒
+早產兒|preterm,premature
+母乳哺育|哺餵母乳,breastfeeding,親餵,哺乳
+袋鼠式護理|kangaroo care,肌膚接觸,skin to skin
+產後出血|pph,postpartum hemorrhage
+剖腹產|c/s,cesarean,剖腹生產
+陰道分娩|nsd,自然產,vaginal delivery
+胎心音|fhr,fhb,fetal heart rate
+預防接種|疫苗,vaccine,vaccination
+
+# ── 感控 ──
+感染管制|infection control,感控
+隔離|isolation,接觸隔離,飛沫隔離,空氣隔離
+手部衛生|洗手,hand hygiene,乾洗手,酒精乾洗手
+個人防護裝備|ppe,防護衣,防護裝備
+多重抗藥性菌|mdro,mrsa,vre,cre,抗藥性菌,多重抗藥性
+針扎|needle stick,針扎事件,扎傷
+
+# ── 基本照護 ──
+壓力性損傷|壓傷,壓瘡,褥瘡,pressure injury,pressure ulcer,bedsore
+傷口|wound
+傷口換藥|換藥,dressing,wound care,傷口護理
+負壓傷口治療|npwt,vac,負壓傷口
+燒燙傷|burn,燒傷,燙傷
+跌倒|fall,跌倒預防
+約束|保護性約束,restraint,身體約束
+翻身|turning,翻身擺位,positioning,擺位
+口腔護理|oral care,口腔清潔
+會陰沖洗|perineal care,會陰護理
+床上沐浴|bed bath,擦澡
+排尿|voiding,解尿,小便
+排便|stool,糞便,解便,大便
+禁食|npo,空腹,nothing by mouth
+
+# ── 行政／流程 ──
+病人辨識|patient identification,身分辨識,病人身分確認
+交班|handover,交接班,isbar,sbar
+護理紀錄|護理記錄,nursing record
+護理計畫|care plan,護理計劃
+出院準備服務|出院準備,discharge planning
+異常事件通報|incident report,異常事件,病安通報,意外事件通報
+安寧緩和療護|安寧,hospice,palliative care,緩和醫療
+預立醫療照護諮商|acp,預立醫療,預立醫療決定
+自殺防治|suicide prevention,自殺,自傷
