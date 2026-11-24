@@ -1,5 +1,5 @@
 {
-  "_說明": "示範版用的虛構護理標準。內容為教學測試用途自行撰寫，非任何醫院的正式護理標準，不可作為臨床執行依據。編號 CP9xx 為示範專用，不對應正式標準。",
+  "_說明": "示範版用的虛構護理標準。內容為教學測試用途自行撰寫，非任何醫院的正式護理標準，不可作為臨床執行依據。編號 CP9xx 為示範專用，不對應正式標準。clip_labels 是「拍照查標準」用的英文圖片描述（CLIP 模型以英文較準），每個描述對應所屬標準的編號與名稱。",
   "standards": [
     {
       "code": "CP901",
@@ -8,7 +8,14 @@
       "video": "",
       "rev_date": "115.01",
       "unit": "示範",
-      "keywords": ["手部衛生", "濕洗手", "乾洗手", "洗手時機", "指甲", "飾品"],
+      "keywords": [
+        "手部衛生",
+        "濕洗手",
+        "乾洗手",
+        "洗手時機",
+        "指甲",
+        "飾品"
+      ],
       "pages": [
         {
           "page": 1,
@@ -33,6 +40,14 @@
             "八、稽核\n單位每月抽查手部衛生遵從率，示範目標值為 90% 以上，結果於單位會議中檢討。"
           ]
         }
+      ],
+      "clip_labels": [
+        "washing hands at a sink",
+        "hands with soap foam",
+        "rubbing hands together to clean them",
+        "an alcohol hand rub dispenser",
+        "an automatic hand sanitizer dispenser on a stand",
+        "a bottle of hand sanitizer"
       ]
     },
     {
@@ -42,7 +57,14 @@
       "video": "",
       "rev_date": "115.03",
       "unit": "示範",
-      "keywords": ["口腔護理", "口腔評估", "牙刷", "漱口水", "氣管內管", "抽吸"],
+      "keywords": [
+        "口腔護理",
+        "口腔評估",
+        "牙刷",
+        "漱口水",
+        "氣管內管",
+        "抽吸"
+      ],
       "pages": [
         {
           "page": 1,
@@ -65,17 +87,177 @@
             "六、注意事項\n1. 使用氣管內管病人執行前，應確認氣囊壓力維持在 25 至 30 cmH2O，避免分泌物流入下呼吸道。\n2. 不可將手指放入意識不清或躁動病人的口中。\n3. 有出血傾向的病人改用海綿棒，避免使用牙刷。\n4. 假牙應取下另外清洗，夜間浸泡於冷水中保存。"
           ]
         }
+      ],
+      "clip_labels": [
+        "a toothbrush and toothpaste",
+        "cleaning a patient's mouth with a sponge swab",
+        "a bottle of mouthwash",
+        "an oral care kit",
+        "dentures in a cup of water"
+      ]
+    },
+    {
+      "code": "CP903",
+      "title": "輸液幫浦使用（示範）",
+      "cat": "儀器使用",
+      "video": "",
+      "rev_date": "115.05",
+      "unit": "示範",
+      "keywords": [
+        "輸液幫浦",
+        "流速",
+        "警報",
+        "阻塞",
+        "排氣",
+        "管路"
+      ],
+      "pages": [
+        {
+          "page": 1,
+          "sections": [
+            "一、目的\n1. 精確控制靜脈輸液的流速與總量。\n2. 及早發現管路阻塞、空氣或輸液完成等狀況。",
+            "二、用物\n1. 輸液幫浦與點滴架。\n2. 幫浦專用輸液套管、輸液溶液。\n3. 酒精棉片、手套。"
+          ]
+        },
+        {
+          "page": 2,
+          "sections": [
+            "三、步驟\n1. 核對醫囑、病人身分與輸液內容，執行手部衛生。\n2. 將輸液套管排氣後，依幫浦機身標示方向裝入管路並關上門蓋。\n3. 設定流速（mL/hr）與預定輸液總量，由第二人覆核設定值。\n4. 確認管路與病人端連接後按下開始，觀察滴注室滴落正常。\n5. 記錄開始時間、流速與設定總量。",
+            "四、警報處理\n1. 阻塞警報：檢查管路是否扭折、夾子未打開或注射部位滲漏。\n2. 空氣警報：暫停輸注，依步驟將管路內空氣排除後再重新開始。\n3. 輸液完成警報：確認醫囑是否需接續下一瓶，不可只按靜音後離開。"
+          ]
+        },
+        {
+          "page": 3,
+          "sections": [
+            "五、注意事項\n1. 每 1 小時巡視一次輸液量、流速與注射部位。\n2. 更換輸液或調整流速時，須重新覆核設定值。\n3. 幫浦應插電使用，電池僅供移動時短暫使用。\n4. 幫浦故障時立即停用，貼上故障標示並送修。"
+          ]
+        }
+      ],
+      "clip_labels": [
+        "an infusion pump machine",
+        "an infusion pump mounted on an IV pole",
+        "a medical device screen showing the flow rate",
+        "a bag of IV fluid hanging above an infusion pump machine",
+        "a nurse pressing buttons on an infusion pump"
+      ]
+    },
+    {
+      "code": "CP904",
+      "title": "周邊靜脈留置針照護（示範）",
+      "cat": "注射",
+      "video": "",
+      "rev_date": "115.06",
+      "unit": "示範",
+      "keywords": [
+        "周邊靜脈留置針",
+        "留置針",
+        "靜脈炎",
+        "敷料",
+        "沖管",
+        "拔除"
+      ],
+      "pages": [
+        {
+          "page": 1,
+          "sections": [
+            "一、目的\n1. 維持周邊靜脈留置針通暢。\n2. 預防靜脈炎、滲漏及導管相關感染。",
+            "二、評估\n1. 每班至少評估注射部位 1 次，觀察有無紅、腫、熱、痛或滲漏。\n2. 依靜脈炎量表評分，2 分以上應拔除留置針並通知醫師。"
+          ]
+        },
+        {
+          "page": 2,
+          "sections": [
+            "三、敷料照護\n1. 使用透明敷料固定，以便觀察注射部位。\n2. 敷料潮濕、鬆脫或污染時立即更換。\n3. 更換敷料時於敷料上註明日期與時間。",
+            "四、沖管\n1. 給藥前後以生理食鹽水 5 至 10 毫升，採脈衝式推注沖管。\n2. 推注有阻力時不可用力推注，應評估是否阻塞。"
+          ]
+        },
+        {
+          "page": 3,
+          "sections": [
+            "五、拔除與更換\n1. 出現靜脈炎、滲漏、阻塞或已無使用需要時，應拔除留置針。\n2. 拔除後以無菌紗布按壓注射部位至不出血，並觀察有無血腫。",
+            "六、注意事項\n1. 避免在關節處放置留置針。\n2. 留置針不使用時，不可長時間未沖管。"
+          ]
+        }
+      ],
+      "clip_labels": [
+        "an IV cannula taped to the back of a patient's hand",
+        "a hand with an IV catheter under a white adhesive dressing",
+        "an IV catheter with colored plastic caps on a hand",
+        "a transparent dressing over an IV site on an arm",
+        "flushing an IV catheter with a syringe"
       ]
     }
   ],
   "synonyms": [
-    ["手部衛生", "洗手", "hand hygiene"],
-    ["乾洗手", "酒精性乾洗手液", "alcohol hand rub"],
-    ["濕洗手", "液態皂洗手"],
-    ["口腔護理", "口腔清潔", "oral care"],
-    ["氣管內管", "endo", "ett", "氣管插管"],
-    ["抽吸", "抽痰", "suction"],
-    ["假牙", "活動假牙"],
-    ["困難梭狀桿菌", "c. difficile", "cdi"]
-  ]
+    [
+      "手部衛生",
+      "洗手",
+      "hand hygiene"
+    ],
+    [
+      "乾洗手",
+      "酒精性乾洗手液",
+      "alcohol hand rub"
+    ],
+    [
+      "濕洗手",
+      "液態皂洗手"
+    ],
+    [
+      "口腔護理",
+      "口腔清潔",
+      "oral care"
+    ],
+    [
+      "氣管內管",
+      "endo",
+      "ett",
+      "氣管插管"
+    ],
+    [
+      "抽吸",
+      "抽痰",
+      "suction"
+    ],
+    [
+      "假牙",
+      "活動假牙"
+    ],
+    [
+      "困難梭狀桿菌",
+      "c. difficile",
+      "cdi"
+    ],
+    [
+      "輸液幫浦",
+      "iv pump",
+      "infusion pump",
+      "幫浦"
+    ],
+    [
+      "周邊靜脈留置針",
+      "留置針",
+      "iv cath",
+      "靜脈留置針"
+    ],
+    [
+      "靜脈炎",
+      "phlebitis"
+    ],
+    [
+      "沖管",
+      "flush",
+      "沖洗管路"
+    ]
+  ],
+  "clip_other_labels": [
+    "a person's face",
+    "a document or paper with text",
+    "food on a plate",
+    "a computer or phone screen",
+    "an outdoor scene",
+    "an animal",
+    "an empty room"
+  ],
+  "_clip_other_說明": "clip_other_labels 不對應任何標準：讓與護理技術無關的照片有地方「歸類」，避免模型硬猜成某一份標準。"
 }

@@ -47,6 +47,8 @@
   <symbol id="i-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></g></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></g></symbol>
   <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><path d="M7.5 7.5h.01"/></g></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></g></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13.5" r="3.5"/></g></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
 </defs></svg>
 <header class="header">
@@ -91,7 +93,7 @@
 </aside>
 <div class="scrim" id="scrim"></div>
 <main class="main"><div class="container">
-<div class="banner info demo-note"><svg width="16" height="16"><use href="#i-info"/></svg><div><b>示範版</b>：查詢的是 <code>demo/sample_standards.json</code> 中 2 份<b>虛構</b>的護理技術，AI 整理為規則模擬。內容不可作為臨床依據。</div></div>
+<div class="banner info demo-note"><svg width="16" height="16"><use href="#i-info"/></svg><div><b>示範版</b>：查詢的是 <code>demo/sample_standards.json</code> 中 <span data-demo-n>…</span> 份<b>虛構</b>的護理技術，AI 整理為規則模擬。內容不可作為臨床依據。</div></div>
 
 
   <!-- ================= 問助理 ================= -->
@@ -213,9 +215,25 @@
 <div class="composer" id="composer">
   <div class="inner">
     <div class="scope" data-scope><span class="scope-l">查詢範圍</span></div>
+    <!-- [DEMO] 拍照查標準：縮圖預覽與辨識結果（multimodal.js） -->
+    <div class="mm-panel" id="mmPanel" hidden>
+      <img id="mmThumb" alt="要辨識的照片預覽">
+      <div class="mm-res" id="mmRes"></div>
+      <button type="button" class="icon-btn mm-close" id="mmClose" aria-label="關閉照片辨識"><svg width="18" height="18"><use href="#i-x"/></svg></button>
+    </div>
     <div class="box">
+      <!-- [DEMO] 語音提問、拍照查標準 -->
+      <button type="button" class="icon-btn mm-btn" id="mmMic" aria-label="語音提問" aria-pressed="false" title="語音提問（說完自動送出）"><svg width="20" height="20"><use href="#i-mic"/></svg></button>
+      <button type="button" class="icon-btn mm-btn" id="mmCam" aria-label="拍照查標準" title="拍照或上傳圖片查標準"><svg width="20" height="20"><use href="#i-camera"/></svg></button>
+      <input type="file" id="mmFile" accept="image/*" hidden>
       <textarea id="q" rows="1" maxlength="200" placeholder="輸入你的問題，例如：洗手的五個時機是什麼？"></textarea>
       <button class="btn btn-primary btn-lg" id="send"><span class="spin"></span><svg width="18" height="18" class="lbl-ico"><use href="#i-send"/></svg><span class="lbl">詢問助理</span></button>
+    </div>
+    <!-- [DEMO] 語音與拍照的設定、提醒 -->
+    <div class="mm-bar">
+      <span class="mm-warn"><svg width="14" height="14"><use href="#i-camera"/></svg>請勿拍攝病人臉部、手圈或病歷；照片只在你的瀏覽器處理，不會上傳</span>
+      <span class="mm-hint" id="mmMicHint" hidden><svg width="14" height="14"><use href="#i-mic"/></svg>此瀏覽器不支援語音輸入，請改用 Chrome 或 Edge</span>
+      <label class="mm-switch" id="mmAutoWrap"><input type="checkbox" id="mmAuto"><i></i>回答自動朗讀</label>
     </div>
     <div class="sub"><span><svg width="14" height="14"><use href="#i-shield"/></svg>回答只取自護理部護理標準，實際執行請以最新版標準與醫囑為準</span><span>Enter 送出・Shift+Enter 換行</span></div>
   </div>
@@ -252,5 +270,6 @@
 </div>
 <script src="history_store.js"></script>
 <script src="mock_api.js"></script>
+<script src="multimodal.js"></script>
 </body>
 </html>

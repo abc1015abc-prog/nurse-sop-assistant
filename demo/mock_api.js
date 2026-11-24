@@ -30,7 +30,8 @@
     ['評估', ['評估', '觀察', '監測'], ['評估', '觀察']]
   ];
   // 與正式版 S_coach_syn.asp 的停用詞相同
-  var STOP = ['請問', '怎麼', '如何', '什麼', '多久', '多少', '要', '嗎', '呢', '的', '是否', '需要', '可以', '病人', '注意事項', '步驟', '?', '？', '，', ','];
+  //   [DEMO] 前面加上「拍照查標準」自動帶入問句的固定用字，避免被當成查詢重點
+  var STOP = ['這張照片相關的是', '照片', '重點', '請問','怎麼', '如何', '什麼', '多久', '多少', '要', '嗎', '呢', '的', '是否', '需要', '可以', '病人', '注意事項', '步驟', '?', '？', '，', ','];
 
   var DATA = null, CHUNKS = [], STDS = {}, VOCAB = [], GROUPS = [], CORPUS = '';
 
@@ -147,8 +148,9 @@
       var std = STDS[ch.code], m = hitMask(ch.ntext + norm(plainTitle(std.title)), concepts);
       var inBody = hitMask(ch.ntext, concepts), head = ch.text.split('\n')[0];
       var hkHead = a.hk.some(function (h) { return head.indexOf(h) >= 0; });   // 段落標題就是問的章節（注意事項、步驟…）
-      if (!inBody.length && !(m.length && hkHead)) return;
-      var sc = m.length + (hkHead ? 0.8 : a.hk.some(function (h) { return ch.text.indexOf(h) >= 0; }) ? 0.3 : 0);
+      if (!m.length) return;
+      // 只有標準名稱符合（內文沒寫到該詞）也納入，但分數較低；段落標題就是問的章節時加分
+      var sc = m.length - (inBody.length ? 0 : 0.5) + (hkHead ? 0.8 : a.hk.some(function (h) { return ch.text.indexOf(h) >= 0; }) ? 0.3 : 0);
       scored.push({ ch: ch, sc: sc, mask: m });
       var ps = perStd[ch.code] || (perStd[ch.code] = { mask: {}, best: 0, rows: [] });
       m.forEach(function (i) { ps.mask[i] = 1; });
@@ -277,7 +279,10 @@
   }
 
   // ---------- 給 app.js 用的介面 ----------
+  var readyResolve, READY = new Promise(function (r) { readyResolve = r; });
   window.DEMO = {
+    ready: READY,                                    // 範例資料載入後 resolve（multimodal.js 拍照辨識要用 clip_labels）
+    data: function () { return DATA; },
     types: TYPES,
     aiOn: true,
     std: function () {   // [編號, 名稱, 分類, 影片, 已建索引, 修改日, 單位]
@@ -363,6 +368,7 @@
   // ---------- 啟動：讀 sample_standards.json，成功後才載入畫面程式 app.js ----------
   function start(data) {
     prepare(data);
+    readyResolve(data);
     var n = (data.standards || []).length;
     Array.prototype.forEach.call(document.querySelectorAll('[data-demo-n]'), function (el) { el.textContent = n; });
     var bar = document.getElementById('demoKbBar'); if (bar) bar.style.width = n ? '100%' : '0';
